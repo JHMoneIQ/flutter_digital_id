@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "/WRnNZL3jZI=",
+  "success": true,
+  "projectFilePath": "/Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/src/DigitalId.Net.csproj",
+  "expectedPackageFiles": [
+    "/Users/jameshancock/.nuget/packages/bouncycastle.cryptography/2.6.2/bouncycastle.cryptography.2.6.2.nupkg.sha512",
+    "/Users/jameshancock/.nuget/packages/petero.cbor/4.5.2/petero.cbor.4.5.2.nupkg.sha512",
+    "/Users/jameshancock/.nuget/packages/petero.numbers/1.8.2/petero.numbers.1.8.2.nupkg.sha512",
+    "/Users/jameshancock/.nuget/packages/petero.uriutility/1.0.0/petero.uriutility.1.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

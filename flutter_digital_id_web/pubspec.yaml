@@ -1,0 +1,28 @@
+name: flutter_digital_id_web
+description: Web implementation of flutter_digital_id using the W3C Digital Credentials API.
+version: 0.1.0
+homepage: https://github.com/jameshancock/flutter_digital_id
+
+resolution: workspace
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  flutter_digital_id_platform_interface: ^0.1.0
+  web: ^1.1.0   # Preferred for JS interop (as per project guidelines)
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+
+flutter:
+  plugin:
+    platforms:
+      web:
+        pluginClass: FlutterDigitalIdWeb
+        fileName: flutter_digital_id_web.dart

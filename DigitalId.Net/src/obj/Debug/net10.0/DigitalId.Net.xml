@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DigitalId.Net</name>
+    </assembly>
+    <members>
+        <member name="T:DigitalId.DigitalIdJsonContext">
+            <summary>
+            Source-generated JsonSerializerContext for AOT trimming/performance and consistent camelCase handling.
+            Mirrors the pattern used in ProjectFulcrum Contracts/Messages.
+            All hand-coded ToJson/FromJson methods in this library prefer this context.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.Boolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.NullableBoolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.ByteArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.Double">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.NullableDouble">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.ClaimPath">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.DigitalIdCredential">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.DigitalIdErrorCode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.DigitalIdException">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.DigitalIdRequestOptions">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.DictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.IReadOnlyListClaimPath">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.IReadOnlyListString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.DateTimeOffset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.NullableDateTimeOffset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.Int32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.NullableInt32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdJsonContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:DigitalId.DigitalIdJsonContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:DigitalId.DigitalIdJsonContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DigitalId.DigitalIdJsonContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:DigitalId.ClaimPath">
+            <summary>
+            Represents a path to a specific claim inside a digital credential (mdoc style).
+            Matches the Dart ClaimPath shape exactly for interoperability.
+            </summary>
+        </member>
+        <member name="M:DigitalId.ClaimPath.ToJson">
+            <summary>
+            Hand-coded serialization (no reflection-heavy generators at runtime).
+            Produces camelCase JSON matching the Flutter/Dart side exactly.
+            </summary>
+        </member>
+        <member name="M:DigitalId.ClaimPath.ToMap">
+            <summary>
+            Map form using the same camelCase keys as Dart toMap().
+            </summary>
+        </member>
+        <member name="T:DigitalId.DigitalIdCredential">
+            <summary>
+            The result of a successful digital identity presentation.
+            Contains both structured fields (for immediate frontend use) and the raw cryptographic proof (for backend validation).
+            Hand-coded serialization + attributes produce exact camelCase + base64/ISO shape matching Flutter/Dart.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdCredential.AllDisclosedClaims">
+            <summary>
+            Raw map of every claim that was actually disclosed.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdCredential.RawCredential">
+            <summary>
+            The full verifiable presentation / encrypted blob / mdoc device response.
+            This is what must be sent to your backend for validation.
+            </summary>
+        </member>
+        <member name="M:DigitalId.DigitalIdCredential.ToJson">
+            <summary>
+            Hand-coded serialization (no source generators at runtime).
+            Produces exact camelCase + base64/ISO matching the Dart toJson()/toMap().
+            </summary>
+        </member>
+        <member name="M:DigitalId.DigitalIdCredential.ToMap">
+            <summary>
+            Produces a map with exact camelCase keys and base64/ISO values matching Dart toMap().
+            </summary>
+        </member>
+        <member name="M:DigitalId.DigitalIdException.ToJson">
+            <summary>
+            Hand-coded JSON matching Dart DigitalIdException.toJson() shape.
+            </summary>
+        </member>
+        <member name="T:DigitalId.DigitalIdErrorCode">
+            <summary>
+            Error codes matching the Dart DigitalIdErrorCode enum.
+            </summary>
+        </member>
+        <member name="T:DigitalId.DigitalIdRequestOptions">
+            <summary>
+            Controls what data is requested from a digital identity document (selective disclosure).
+            Matches Dart DigitalIdRequestOptions exactly for cross-platform use.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdRequestOptions.PlatformOptions">
+            <summary>
+            Platform-specific escape hatch (advanced use only).
+            </summary>
+        </member>
+        <member name="M:DigitalId.DigitalIdRequestOptions.ToJson">
+            <summary>
+            Hand-coded serialization producing camelCase JSON matching Flutter toJson().
+            </summary>
+        </member>
+        <member name="M:DigitalId.DigitalIdRequestOptions.ToMap">
+            <summary>
+            Map using exact camelCase keys from Dart toMap().
+            </summary>
+        </member>
+        <member name="T:DigitalId.DigitalIdType">
+            <summary>
+            The type of government-issued digital identity document.
+            </summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdType.Passport">
+            <summary>Passport or passport-derived Digital ID.</summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdType.EuDigitalId">
+            <summary>EU Digital Identity / eIDAS PID or national eID.</summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdType.DriversLicense">
+            <summary>Driver's license or mobile Driver's License (mDL).</summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdType.AgeVerificationOnly">
+            <summary>Special mode for age verification only (minimal disclosure).</summary>
+        </member>
+        <member name="T:DigitalId.Requests.DigitalIdRequestBuilder">
+            <summary>
+            Builds OpenID4VP / DCQL requests from the cross-platform options.
+            </summary>
+        </member>
+        <member name="T:DigitalId.Verification.Apple.AppleResponseDecryptor">
+            <summary>
+            Decrypts Apple "encrypted" identity responses returned by PassKit Verify with Wallet.
+            </summary>
+        </member>
+        <member name="T:DigitalId.Verification.DigitalIdVerifier">
+            <summary>
+            Production-capable verification for mdoc and digital credentials.
+            Real COSE validation is now performed when proper keys are provided.
+            </summary>
+        </member>
+        <member name="T:DigitalId.Verification.Mdoc.MdocParser">
+            <summary>
+            Basic parser for mdoc DeviceResponse.
+            This is a pragmatic implementation focused on extracting the structures needed for verification.
+            </summary>
+        </member>
+        <member name="T:DigitalId.Verification.Mdoc.MdocVerifier">
+            <summary>
+            Production-oriented mdoc verifier.
+            This class actually performs cryptographic validation of mdoc presentations.
+            </summary>
+        </member>
+        <member name="M:DigitalId.Verification.Mdoc.MdocVerifier.Verify(System.ReadOnlySpan{System.Byte},System.Byte[],Org.BouncyCastle.Crypto.AsymmetricKeyParameter,Org.BouncyCastle.Crypto.AsymmetricKeyParameter)">
+            <summary>
+            Verifies a complete mdoc DeviceResponse.
+            </summary>
+        </member>
+    </members>
+</doc>

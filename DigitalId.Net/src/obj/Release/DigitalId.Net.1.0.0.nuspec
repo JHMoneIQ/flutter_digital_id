@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DigitalId.Net</id>
+    <version>1.0.0</version>
+    <title>DigitalId.Net - Digital Identity for .NET (OpenID4VP / mdoc)</title>
+    <authors>James Hancock</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/jameshancock/flutter_digital_id</projectUrl>
+    <description>Minimal-dependency .NET 10 library for building and verifying digital identity credentials (passports, mDL, EU Digital ID) using OpenID4VP / mdoc. Official C# companion to the flutter_digital_id Flutter plugin. Hand-coded serialization for full Dart/Flutter parity.</description>
+    <releaseNotes>Initial release: full model parity with flutter_digital_id, DCQL request builder, verification primitives, golden test vectors.</releaseNotes>
+    <copyright>Copyright 2026 Project Fulcrum Inc.</copyright>
+    <tags>digital-id mdl mdoc openid4vp digital-credentials verification kyc passport drivers-license</tags>
+    <repository type="git" url="https://github.com/jameshancock/flutter_digital_id" />
+    <dependencies>
+      <group targetFramework="net10.0">
+        <dependency id="BouncyCastle.Cryptography" version="2.6.2" exclude="Build,Analyzers" />
+        <dependency id="PeterO.Cbor" version="4.5.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/src/bin/Release/net10.0/DigitalId.Net.dll" target="lib/net10.0/DigitalId.Net.dll" />
+    <file src="/Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/src/bin/Release/net10.0/DigitalId.Net.xml" target="lib/net10.0/DigitalId.Net.xml" />
+    <file src="/Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/README.md" target="/README.md" />
+    <file src="/Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/LICENSE" target="/LICENSE" />
+  </files>
+</package>

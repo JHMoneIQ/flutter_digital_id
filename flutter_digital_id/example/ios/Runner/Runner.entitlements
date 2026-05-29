@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- 
+		This is a TEMPLATE for testing the flutter_digital_id plugin on iOS.
+
+		=== IMPORTANT ===
+		You must customize this for your Apple Developer account and app.
+
+		1. Create a Merchant ID in the Apple Developer portal (if you don't have one).
+		2. Create an "Identity Access Certificate" for that Merchant ID.
+		3. Add the "In App Identity Presentment" capability to your App ID.
+		4. Add this Merchant ID under the In App Identity Presentment Merchant IDs capability.
+
+		Then fill in the values below.
+
+		For simulator testing with mock data:
+		- Install Apple's "Wallet and Apple mDL Developer Integrator profile".
+		- Use their sample data + simulator keys bundle (linked in the plugin README).
+
+		See the plugin README for full step-by-step instructions.
+	-->
+
+	<key>com.apple.developer.in-app-identity-presentment</key>
+	<dict>
+		<key>document-types</key>
+		<array>
+			<!-- Common values: us-drivers-license, passport-digital-id, etc.
+			     Start with these for simulator testing. -->
+			<string>us-drivers-license</string>
+			<string>passport-digital-id</string>
+		</array>
+		<key>elements</key>
+		<array>
+			<!-- Request the minimum you actually need for privacy.
+			     These are examples for a typical KYC flow. -->
+			<string>given-name</string>
+			<string>family-name</string>
+			<string>portrait</string>
+			<string>address</string>
+			<string>date-of-birth</string>
+			<string>document-number</string>
+			<string>document-expiration-date</string>
+			<string>issuing-authority</string>
+			<string>age</string>
+		</array>
+	</dict>
+
+	<key>com.apple.developer.in-app-identity-presentment.merchant-identifiers</key>
+	<array>
+		<!-- Replace with your actual Merchant ID -->
+		<string>merchant.com.yourcompany.digitalid</string>
+	</array>
+</dict>
+</plist>

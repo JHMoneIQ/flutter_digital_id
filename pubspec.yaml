@@ -1,0 +1,15 @@
+name: flutter_digital_id_workspace
+publish_to: none
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.0"
+
+workspace:
+  - flutter_digital_id
+  - flutter_digital_id_platform_interface
+  - flutter_digital_id_android
+  - flutter_digital_id_darwin
+  - flutter_digital_id_web
+  - flutter_digital_id/example
+  - test_harness

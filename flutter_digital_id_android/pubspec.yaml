@@ -1,0 +1,29 @@
+name: flutter_digital_id_android
+description: Android implementation of flutter_digital_id.
+version: 0.1.0
+homepage: https://github.com/jameshancock/flutter_digital_id
+
+resolution: workspace
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_digital_id_platform_interface: ^0.1.0
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+  meta: ^1.15.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: dev.hancock.flutter_digital_id
+        pluginClass: FlutterDigitalIdPlugin
+        dartPluginClass: FlutterDigitalIdAndroid

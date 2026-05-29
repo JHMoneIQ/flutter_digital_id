@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- 
+		This is a TEMPLATE for testing the flutter_digital_id plugin on iOS using
+		the REAL "Verify with Wallet" / PassKit In-App Identity Presentment flow.
+
+		=== IMPORTANT (for jrlh@outlook.com account) ===
+		1. Go to https://developer.apple.com/account/resources/identifiers/list
+		2. Create (or reuse) a Merchant ID, e.g. merchant.com.hancock.digitalid or merchant.com.yourcompany.digitalid
+		3. Create an "Identity Access Certificate" for that Merchant ID (this gives you the private key your *server* will use to decrypt).
+		4. Go to your App ID (Identifiers) → edit capabilities:
+		   - Enable "In App Identity Presentment"
+		   - Add the Merchant ID you created under "In App Identity Presentment Merchant IDs"
+		5. Download the updated provisioning profile for your test app / team.
+
+		For simulator testing with Apple's mock documents:
+		- Install the "Wallet and Apple mDL Developer Integrator profile" from Apple.
+		- Use their sample data bundle.
+
+		See the plugin README for the full step-by-step with your Apple Developer account.
+	-->
+
+	<key>com.apple.developer.in-app-identity-presentment</key>
+	<dict>
+		<key>document-types</key>
+		<array>
+			<!-- These must match what you enabled in your App ID entitlement. -->
+			<string>us-drivers-license</string>
+			<string>passport-digital-id</string>
+		</array>
+		<key>elements</key>
+		<array>
+			<string>given-name</string>
+			<string>family-name</string>
+			<string>portrait</string>
+			<string>address</string>
+			<string>date-of-birth</string>
+			<string>document-number</string>
+			<string>document-expiration-date</string>
+			<string>issuing-authority</string>
+			<string>age</string>
+		</array>
+	</dict>
+
+	<key>com.apple.developer.in-app-identity-presentment.merchant-identifiers</key>
+	<array>
+		<!-- === CHANGE THIS TO YOUR REAL MERCHANT ID === -->
+		<string>merchant.com.hancock.digitalid</string>
+	</array>
+</dict>
+</plist>

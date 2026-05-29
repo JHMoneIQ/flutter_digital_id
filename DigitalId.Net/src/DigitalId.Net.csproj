@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <WarningsAsErrors>Nullable</WarningsAsErrors>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+    <!-- NuGet packaging (aligned with ProjectFulcrum library standards) -->
+    <PackageId>DigitalId.Net</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>James Hancock</Authors>
+    <Company>Project Fulcrum Inc.</Company>
+    <Description>Minimal-dependency .NET 10 library for building and verifying digital identity credentials (passports, mDL, EU Digital ID) using OpenID4VP / mdoc. Official C# companion to the flutter_digital_id Flutter plugin. Hand-coded serialization for full Dart/Flutter parity.</Description>
+    <PackageTags>digital-id;mdl;mdoc;openid4vp;digital-credentials;verification;kyc;passport;drivers-license</PackageTags>
+    <PackageProjectUrl>https://github.com/jameshancock/flutter_digital_id</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jameshancock/flutter_digital_id</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>Initial release: full model parity with flutter_digital_id, DCQL request builder, verification primitives, golden test vectors.</PackageReleaseNotes>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <Copyright>Copyright $([System.DateTime]::Now.Year) Project Fulcrum Inc.</Copyright>
+    <Title>DigitalId.Net - Digital Identity for .NET (OpenID4VP / mdoc)</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- 
+    For production-grade mdoc validation (CBOR + COSE + encryption).
+    These are the smallest practical dependencies to actually validate mdoc encryption.
+  -->
+  <ItemGroup>
+    <PackageReference Include="PeterO.Cbor" Version="4.5.2" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
+  </ItemGroup>
+
+</Project>
