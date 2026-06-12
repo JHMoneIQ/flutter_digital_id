@@ -1,0 +1,21 @@
+# Files to exclude from `dart pub publish` even if they are checked into git.
+# This suppresses the "checked-in files are ignored by .gitignore" validation
+# warning for build artifacts, coverage, etc. that have been committed.
+# See: https://dart.dev/go/pubignore
+
+# Generated build outputs (native assets, test caches, shaders, etc.)
+build/
+
+# Dart/Flutter tooling state
+.dart_tool/
+
+# Coverage reports
+coverage/
+
+# IDE / editor / OS noise that may have been committed
+.idea/
+*.iml
+.vscode/
+.DS_Store
+*.swp
+*~
