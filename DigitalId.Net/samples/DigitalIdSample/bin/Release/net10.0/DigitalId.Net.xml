@@ -149,6 +149,27 @@
             Hand-coded serialization + attributes produce exact camelCase + base64/ISO shape matching Flutter/Dart.
             </summary>
         </member>
+        <member name="P:DigitalId.DigitalIdCredential.GivenName">
+            <summary>Given name (first name) as disclosed by the credential.</summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdCredential.FamilyName">
+            <summary>Family name (last name) as disclosed by the credential.</summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdCredential.FullName">
+            <summary>Full name as disclosed (if provided by issuer).</summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdCredential.DateOfBirth">
+            <summary>Date of birth.</summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdCredential.BirthDate">
+            <summary>Raw birth date string (ISO format if present).</summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdCredential.AgeOver18">
+            <summary>Whether the holder is over 18 (if disclosed).</summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdCredential.AgeOver21">
+            <summary>Whether the holder is over 21 (if disclosed).</summary>
+        </member>
         <member name="P:DigitalId.DigitalIdCredential.AllDisclosedClaims">
             <summary>
             Raw map of every claim that was actually disclosed.
@@ -171,6 +192,26 @@
             Produces a map with exact camelCase keys and base64/ISO values matching Dart toMap().
             </summary>
         </member>
+        <member name="T:DigitalId.DigitalIdException">
+            <summary>
+            Represents an error that occurred during a digital identity request or verification.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdException.Code">
+            <summary>
+            The machine-readable error code.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdException.Message">
+            <summary>
+            Human-readable description of the error.
+            </summary>
+        </member>
+        <member name="P:DigitalId.DigitalIdException.Details">
+            <summary>
+            Additional diagnostic details (if any).
+            </summary>
+        </member>
         <member name="M:DigitalId.DigitalIdException.ToJson">
             <summary>
             Hand-coded JSON matching Dart DigitalIdException.toJson() shape.
@@ -180,6 +221,24 @@
             <summary>
             Error codes matching the Dart DigitalIdErrorCode enum.
             </summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdErrorCode.NotAvailable">
+            <summary>No digital ID of the requested type is available on this device/platform.</summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdErrorCode.UserCancelled">
+            <summary>The user explicitly cancelled the identity presentation.</summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdErrorCode.NotEntitled">
+            <summary>The app is not entitled (Apple) or not registered as a relying party (Google) for this feature.</summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdErrorCode.NoCredential">
+            <summary>No matching credential was found for the request.</summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdErrorCode.PlatformUnsupported">
+            <summary>The current platform or OS version does not support digital identity presentment.</summary>
+        </member>
+        <member name="F:DigitalId.DigitalIdErrorCode.Unknown">
+            <summary>An unexpected or unknown error occurred.</summary>
         </member>
         <member name="T:DigitalId.DigitalIdRequestOptions">
             <summary>
@@ -251,6 +310,27 @@
             Real COSE validation is now performed when proper keys are provided.
             </summary>
         </member>
+        <member name="M:DigitalId.Verification.DigitalIdVerifier.LoadIssuerPublicKeyFromPem(System.String)">
+             <summary>
+             Loads a BouncyCastle public key from a PEM string (certificate or public key).
+             
+             Production use: Load your trusted IACA issuer certificates this way and pass the resulting
+             AsymmetricKeyParameter to VerifyMdoc / MdocVerifier.Verify.
+             
+             How to obtain real certificates:
+             - Development / simulator: Use the "Sample data and simulator keys" bundle from Apple’s mDL docs.
+             - Production: Contact each issuing authority (state DMV, national eID provider, etc.) for their current
+               signing certificate. Maintain an allow-list of trusted issuers in your backend configuration.
+               There is no single universal live global API (issuers are sovereign); lists are maintained per-jurisdiction
+               or through regional trust frameworks (e.g. EU eIDAS trusted lists, AAMVA resources for US mDL).
+               Fetching live without strong pinning and signature verification on the list itself is not recommended.
+            
+             US Passport Digital ID (Apple "passport-digital-id"):
+               • Dev/simulator: https://developer.apple.com/bug-reporting/profiles-and-logs/
+                 then https://developer.apple.com/wallet/get-started-with-verify-with-wallet/
+               • Production: Privately distributed by Apple to approved RPs after entitlement approval.
+             </summary>
+        </member>
         <member name="T:DigitalId.Verification.Mdoc.MdocParser">
             <summary>
             Production-grade parser for mdoc ISO 18013-5 DeviceResponse.
@@ -284,11 +364,32 @@
             Rich document structure with all pieces needed for full cryptographic validation.
             </summary>
         </member>
+        <member name="P:DigitalId.Verification.Mdoc.MdocDocument.IssuerAuth">
+            <summary>Raw COSE_Sign1 bytes for the issuer authorization (contains the MSO).</summary>
+        </member>
+        <member name="P:DigitalId.Verification.Mdoc.MdocDocument.DeviceAuth">
+            <summary>Device authentication structure (deviceSignature or deviceMac).</summary>
+        </member>
+        <member name="P:DigitalId.Verification.Mdoc.MdocDocument.IssuerNameSpaces">
+            <summary>Disclosed name spaces and values (the actual claims).</summary>
+        </member>
+        <member name="P:DigitalId.Verification.Mdoc.MdocDocument.Mso">
+            <summary>Parsed Mobile Security Object.</summary>
+        </member>
+        <member name="P:DigitalId.Verification.Mdoc.MdocDocument.MsoBytes">
+            <summary>Raw bytes of the MSO (for digest verification).</summary>
+        </member>
         <member name="T:DigitalId.Verification.Mdoc.MdocVerifier">
             <summary>
             Production-oriented mdoc verifier (ISO 18013-5).
             Performs real COSE cryptographic validation (Sign1 for issuer + device auth) +
             critical MSO digest validation proving the issuer authorized the exact disclosed claim values.
+            </summary>
+        </member>
+        <member name="M:DigitalId.Verification.Mdoc.MdocVerifier.Verify(System.ReadOnlySpan{System.Byte},System.Byte[],Org.BouncyCastle.Crypto.AsymmetricKeyParameter,Org.BouncyCastle.Crypto.AsymmetricKeyParameter)">
+            <summary>
+            Verifies a device response (mdoc) using optional device public key (for transcript binding)
+            and/or issuer public key (for MSO signature + digest validation).
             </summary>
         </member>
     </members>

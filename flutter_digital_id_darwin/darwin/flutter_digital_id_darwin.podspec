@@ -16,19 +16,11 @@ iOS and macOS (unified darwin) implementation of the flutter_digital_id plugin.
   s.source_files     = 'Sources/flutter_digital_id_darwin/**/*'
   s.public_header_files = 'Sources/flutter_digital_id_darwin/**/*.h'
   s.dependency 'Flutter'
-  s.platform = :ios, '16.5'
-  s.platform = :osx, '13.0'
+
+  s.ios.deployment_target = '16.5'
+  s.osx.deployment_target = '13.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.9'
 end
-```
-
-Now create the basic iOS and macOS plugin registrant files that Flutter expects in the darwin structure (many modern plugins put the actual plugin code in the Sources folder).
-
-For the skeleton to compile, we need a minimal structure.
-
-Let's also create the main `FlutterDigitalIdPlugin.swift` that the podspec points to if needed, but for now the one we have is fine.
-
-To make `dart pub get` work at the root, let's try it.

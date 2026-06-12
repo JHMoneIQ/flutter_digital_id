@@ -87,15 +87,15 @@ void main() {
   group('ClaimPath equality (critical for options dedup / comparison)', () {
     test('equal paths are equal regardless of construction', () {
       final a = ClaimPath.familyName();
-      final b = ClaimPath(['org.iso.18013.5.1', 'family_name']);
+      final b = const ClaimPath(['org.iso.18013.5.1', 'family_name']);
       expect(a, equals(b));
       expect(a.hashCode, equals(b.hashCode));
     });
 
     test('different order or values are not equal (fixed bug)', () {
-      final a = ClaimPath(['org.iso.18013.5.1', 'family_name']);
-      final reordered = ClaimPath(['family_name', 'org.iso.18013.5.1']);
-      final different = ClaimPath(['org.iso.18013.5.1', 'given_name']);
+      final a = const ClaimPath(['org.iso.18013.5.1', 'family_name']);
+      final reordered = const ClaimPath(['family_name', 'org.iso.18013.5.1']);
+      final different = const ClaimPath(['org.iso.18013.5.1', 'given_name']);
 
       expect(a == reordered, isFalse);
       expect(a == different, isFalse);

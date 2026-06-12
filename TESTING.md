@@ -1,15 +1,15 @@
 # Testing flutter_digital_id
 
-**Current status note:** Android now has a real Credential Manager integration, Web is still stubbed, and iOS now has a typed PassKit scaffold that still needs validation with an entitled Apple app. The golden test vectors + "test vector mode" in the example/harness remain the most reliable way to build UI, model, serialization, and backend handoff flows.
+This document focuses on practical testing, especially on iOS simulator (the supported path to exercise the real entitled-presentment API surface with Apple's developer integrator profile + sample data) and cross-platform flows using the test harness.
 
-This document focuses on practical testing, especially on iOS simulator (the highest-value path you can exercise without production approval once your Apple-side setup is in place).
+Golden test vectors + "test vector mode" in the example/harness remain the fastest way to build UI, model, serialization, and backend handoff flows without any platform entitlements or wallets.
 
 ## iOS Simulator Testing (Recommended Starting Point)
 
 ### 1. Prerequisites
 
 - Xcode + iOS Simulator (iOS 17+ or 26.x recommended for best mock support).
-- Apple Developer access suitable for installing the developer profile and configuring your test app. Apple’s docs allow mock testing on simulator/device, while the real entitled path requires Apple Developer Program access and an approved entitlement.
+- Apple Developer access suitable for installing the developer profile and configuring your test app. **Critical:** The real PassKit identity presentment APIs require a manually approved "In-App Identity Presentment" entitlement from Apple (not automatic). Simulator mock testing via the developer profile works for development, but production hardware requires the full entitlement approval process. Without it, flows fail with NOT_ENTITLED errors.
 
 ### 2. Install Apple's Developer Profile
 
@@ -42,7 +42,7 @@ flutter_digital_id/example/ios/Runner/Runner.entitlements
 
 Update the Merchant ID to something like:
 
-- `merchant.com.yourcompany.digitalid` (or any valid string for simulator testing).
+- `merchant.com.example.digitalid` (or any valid string for simulator testing).
 
 For simulator/mock testing you do **not** need production approval from Apple. For the real entitled flow in your own app, you still need the Apple Developer Program setup, merchant ID, and entitlement approval described in the main README.
 
@@ -56,11 +56,10 @@ flutter run -d <simulator-udid-or-name>
 In the app:
 
 - Tap **"Try real native flow on this device"** for passport or driver's license.
-- With the typed PassKit scaffold in place, the goal is that a correctly configured entitled build will show the genuine PassKit consent sheet.
-- In this repo, treat that path as **experimental until you validate it in your own Apple environment**.
-- The "Use test vector (no native call)" button is still useful for pure UI/backend development without any device setup.
+- The implementation uses the real typed PassKit APIs; a correctly configured entitled build (or simulator with the developer integrator profile) will show the genuine PassKit consent sheet.
+- The "Use test vector (no native call)" button remains useful for pure UI/backend development without any device or profile setup.
 
-**Note:** The data is mock data signed by a real device key. It will **not** have a valid issuer signature. This is expected and sufficient for exercising the full consent + response flow.
+**Note:** When using Apple's developer integrator profile + sample data, the responses carry mock signatures. This is expected and sufficient for exercising the full consent + response + handoff flow (your backend must still perform real decryption + validation for production data). Real entitled flows on provisioned devices will carry production-grade signatures from the device.
 
 ### 6. What to Verify
 

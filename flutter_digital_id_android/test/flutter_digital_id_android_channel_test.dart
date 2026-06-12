@@ -89,7 +89,7 @@ void main() {
 
       expect(requestJson, isNotNull);
       final decoded = jsonDecode(requestJson!) as Map<String, dynamic>;
-      expect(decoded['requests'], isA<List>());
+      expect(decoded['requests'], isA<List<dynamic>>());
     },
   );
 }

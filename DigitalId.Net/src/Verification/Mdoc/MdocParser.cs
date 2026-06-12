@@ -169,9 +169,18 @@ public sealed class MdocMso
 /// </summary>
 public sealed class MdocDocument
 {
+    /// <summary>Raw COSE_Sign1 bytes for the issuer authorization (contains the MSO).</summary>
     public byte[]? IssuerAuth { get; set; }
+
+    /// <summary>Device authentication structure (deviceSignature or deviceMac).</summary>
     public CBORObject? DeviceAuth { get; set; }
+
+    /// <summary>Disclosed name spaces and values (the actual claims).</summary>
     public CBORObject? IssuerNameSpaces { get; set; }
+
+    /// <summary>Parsed Mobile Security Object.</summary>
     public MdocMso? Mso { get; set; }
+
+    /// <summary>Raw bytes of the MSO (for digest verification).</summary>
     public byte[]? MsoBytes { get; set; }
 }

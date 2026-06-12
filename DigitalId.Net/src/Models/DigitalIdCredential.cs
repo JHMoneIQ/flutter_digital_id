@@ -12,24 +12,31 @@ public sealed record DigitalIdCredential
 {
     // --- Structured fields (nullable - only populated when disclosed) ---
 
+    /// <summary>Given name (first name) as disclosed by the credential.</summary>
     [JsonPropertyName("givenName")]
     public string? GivenName { get; init; }
 
+    /// <summary>Family name (last name) as disclosed by the credential.</summary>
     [JsonPropertyName("familyName")]
     public string? FamilyName { get; init; }
 
+    /// <summary>Full name as disclosed (if provided by issuer).</summary>
     [JsonPropertyName("fullName")]
     public string? FullName { get; init; }
 
+    /// <summary>Date of birth.</summary>
     [JsonPropertyName("dateOfBirth")]
     public DateTimeOffset? DateOfBirth { get; init; }
 
+    /// <summary>Raw birth date string (ISO format if present).</summary>
     [JsonPropertyName("birthDate")]
     public string? BirthDate { get; init; }
 
+    /// <summary>Whether the holder is over 18 (if disclosed).</summary>
     [JsonPropertyName("ageOver18")]
     public bool? AgeOver18 { get; init; }
 
+    /// <summary>Whether the holder is over 21 (if disclosed).</summary>
     [JsonPropertyName("ageOver21")]
     public bool? AgeOver21 { get; init; }
 

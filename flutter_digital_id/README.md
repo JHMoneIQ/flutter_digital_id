@@ -9,16 +9,11 @@ The plugin returns a `DigitalIdCredential` containing:
 - Rich **structured fields** (name, address, DOB, age flags, portrait, etc.) that your frontend can immediately use to pre-fill forms.
 - The **raw cryptographic proof** (encrypted blob on iOS, mdoc / vp_token on Android/Web) that your backend **must** validate before trusting any data or creating an account.
 
-## Supported Platforms (Implementation Status)
+## Platform Notes
 
-**IMPORTANT: The public Dart API and data model are in good shape, but native wallet support is still uneven. Current status:**
+All three native implementations use the real platform APIs. See the root [README.md](../README.md) for concise setup instructions for iOS, Android, and Web (including simulator profile for iOS and concrete Web testing steps).
 
-- **iOS** — **Experimental scaffold**. The Darwin package now uses the documented PassKit types (`PKIdentityAuthorizationController`, `PKIdentityRequest`, `PKIdentityDriversLicenseDescriptor`, etc.) instead of speculative selector-based calls. It is intended to support simulator/device testing once your Apple entitlement, merchant ID, and `NSIdentityUsageDescription` are configured. This path still needs real-world validation against an entitled app.
-- **Android** — **Implemented via Credential Manager**. The plugin uses an `ActivityAware` Kotlin implementation with `CredentialManager.getCredential(...)` and `GetDigitalCredentialOption`. The Dart layer builds the DCQL-style request and the native plugin returns the wallet response payload for backend verification. This still needs real wallet / RP validation in practice, but it is no longer a stub.
-- **Web** — **Experimental / stub**. Feature detection exists, but `getDigitalId()` still returns `null`.
-- **macOS / Windows / Linux** — Graceful degradation only.
-
-**Bottom line:** You can build and test UI/backend handoff flows today with test vectors. Real native wallet support is still a work in progress.
+The Dart API and models are stable. Platform entitlements / RP registration and cryptographic verification of the raw proof are always the integrating app's responsibility.
 
 ## Key Features
 
@@ -107,7 +102,7 @@ Create (or merge into) `ios/Runner/Runner.entitlements`:
 
 <key>com.apple.developer.in-app-identity-presentment.merchant-identifiers</key>
 <array>
-  <string>merchant.com.yourcompany.digitalid</string>
+  <string>merchant.com.example.digitalid</string>
 </array>
 ```
 
@@ -130,7 +125,7 @@ If you use the default Darwin scaffold in this repo, it also looks for a custom
 The plugin can return mock data carrying simulator/developer-profile signatures,
 which is enough to exercise the consent flow and backend handoff.
 
-**Important:** Real production use still requires the entitlement to be granted by Apple and your server to perform decryption + IACA validation. The Flutter plugin should be treated as **experimental on iOS** until you validate it with your own entitled app.
+**Important:** Real production use still requires the entitlement to be granted by Apple and your server to perform decryption + IACA validation using the returned `apple-encrypted` blob. The client plugin implementation is complete; the remaining validation step is exercising the full flow (consent sheet + response + server decrypt) inside your entitled app.
 
 ## Android Setup
 
@@ -143,11 +138,13 @@ See the plugin source + Google's "Online Acceptance of Digital Credentials" guid
 
 ## Web Setup
 
-The Web implementation is currently a feature-detection shell around the W3C Digital Credentials API.
+The Web implementation targets the W3C Digital Credentials API (`navigator.credentials.get({ digital: ... })`).
 
-- `isDigitalIdAvailable()` does a loose support check.
-- `getDigitalId()` currently returns `null`.
-- Treat web support as experimental until the JS interop and response mapping are completed.
+- `isDigitalIdAvailable()` performs a basic feature detection for the Credentials API.
+- `getDigitalId()` builds an OpenID4VP / DCQL request and extracts a raw response (vp_token / deviceResponse style) using hardened defensive heuristics covering many real-world shapes.
+- Requires a secure context (HTTPS or localhost).
+
+The Web implementation provides production-intent client-side interop using the emerging W3C Digital Credentials API. This standard is still evolving and subject to changes across browsers (Chrome, Safari, etc.). Interoperability ultimately depends on the browser + wallet supporting the API; use the test harness with a compatible wallet (e.g. digital-credentials.dev or equivalent) for end-to-end matrix validation in your environment. Do not assume cross-browser parity in production without testing.
 
 ## Backend Verification (Required)
 
@@ -156,7 +153,7 @@ The Web implementation is currently a feature-detection shell around the W3C Dig
 You must send the `rawCredential` (plus the elements you requested) to your backend. Your backend is responsible for:
 
 - Decrypting (iOS) or validating the presentation (Android/Web mdoc / SD-JWT).
-- Verifying the issuer signature using the appropriate IACA / root certificates.
+- Verifying the issuer signature using the appropriate IACA / root certificates **(critical: you must maintain a set of trusted IACA root certificates and validate the certificate chain; signature checks alone are not sufficient against self-signed attacks)**.
 - Checking holder binding, nonce, etc.
 
 Only after successful server-side validation should you treat the data as authoritative and create accounts or store identity documents.
@@ -188,4 +185,4 @@ Contributions are welcome, especially additional platform support, more element 
 
 ---
 
-**Status:** The Dart API, models, serialization, error handling, and test vectors are the strongest part of the codebase. Android now has a real Credential Manager integration, Web is still stubbed, and iOS now has a documented typed PassKit scaffold that should still be considered experimental until validated against a real entitled app. Feedback and contributions for the native layers are especially welcome.
+The Dart API, models (with hand-coded parity to DigitalId.Net), serialization, error handling, and test vectors form a solid foundation. All three native layers use the real platform surfaces. See the root README for usage and platform setup. Contributions for additional claims, platforms, and examples are welcome.

@@ -11,11 +11,41 @@ Shares identical data models, hand-coded serialization shapes (camelCase, base64
 - Rich `DigitalIdCredential` (structured fields for UI + `RawCredential` bytes for backend cryptographic validation)
 - `ClaimPath`, `DigitalIdRequestOptions`, `DigitalIdException` with full parity
 - DCQL / OpenID4VP request builder (`DigitalIdRequestBuilder`)
-- Verification primitives (`DigitalIdVerifier` - mdoc device auth + issuer signature skeletons; extend with real COSE/mdoc parser in production)
+- Verification primitives (`DigitalIdVerifier` - mdoc device auth + issuer signature + MSO digest validation; **production use requires integrating trusted IACA root certificate validation for the issuer certificate chain** - see notes below)
 - Hand-coded `ToJson`/`FromJson` + `ToMap`/`FromMap` on every model (plus source-generated `JsonSerializerContext` for AOT)
 - Same golden test vectors as Flutter side (positive + negative seeds)
 
 No abstractions layer (per requirements) - everything in one focused package.
+
+**Security note for production:** The verifier performs cryptographic checks (signatures, digests, device auth). However, you **must** also validate that the issuer certificate in the MSO/IssuerAuth chains back to a trusted IACA (Issuing Authority CA) root certificate for your jurisdiction/use case. The library provides the primitives; the trust anchor list and chain validation is your responsibility (or extend the verifier). Self-signed or untrusted issuer credentials can otherwise pass all internal checks.
+
+### Obtaining trusted IACA certificates (US Passport Digital ID example)
+
+**US Passport Digital ID** (Apple document type `passport-digital-id`):
+
+- **Development & simulator testing**:
+  1. Install Apple's "Wallet and Apple mDL Developer Integrator profile": https://developer.apple.com/bug-reporting/profiles-and-logs/
+  2. Download the official "Sample data and simulator keys" bundle from Apple's Verify with Wallet page: https://developer.apple.com/wallet/get-started-with-verify-with-wallet/
+  The bundle contains test certificates and private keys suitable for the simulator profile.
+
+- **Production**:
+  Approved relying parties receive the current US passport signing certificates through Apple's secure developer channels after you have an approved "In-App Identity Presentment" entitlement. These are **not** publicly downloadable for security reasons. Apple (or the US Department of State) distributes updated roots when the passport authority rotates keys.
+
+**US State mDLs** (driver's licenses):
+Each state issues its own mDL signing certificates. Coordinate directly with the state DMVs (or through AAMVA) after you are an approved relying party for that jurisdiction. There is no single public list.
+
+**How to use them with this library**:
+```csharp
+string pem = File.ReadAllText("us-passport-iaca.pem");   // or load from secure config
+var issuerPublicKey = DigitalIdVerifier.LoadIssuerPublicKeyFromPem(pem);
+
+var result = DigitalIdVerifier.VerifyMdoc(
+    credential.RawCredential,
+    sessionTranscript,
+    issuerPublicKey: issuerPublicKey);
+```
+
+See `DigitalIdVerifier.LoadIssuerPublicKeyFromPem` and the `DigitalIdSample` for more details. Always keep your allow-list of trusted issuer certificates up to date.
 
 ## Installation (NuGet)
 

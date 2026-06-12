@@ -1,5 +1,3 @@
-library flutter_digital_id_darwin;
-
 import 'dart:convert';
 
 import 'package:flutter/services.dart';

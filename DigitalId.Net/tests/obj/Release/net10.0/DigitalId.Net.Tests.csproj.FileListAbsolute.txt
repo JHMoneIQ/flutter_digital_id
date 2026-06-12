@@ -103,3 +103,4 @@
 /Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/tests/bin/Release/net10.0/CBOR.dll
 /Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/tests/bin/Release/net10.0/Numbers.dll
 /Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/tests/bin/Release/net10.0/URIUtility.dll
+/Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/tests/obj/Release/net10.0/DigitalId.Net.Tests.sourcelink.json

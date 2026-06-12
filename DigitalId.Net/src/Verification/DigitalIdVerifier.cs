@@ -2,6 +2,7 @@ using DigitalId;
 using DigitalId.Verification.Cose;
 using DigitalId.Verification.Mdoc;
 using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.OpenSsl;
 using System.Security.Cryptography;
 
 namespace DigitalId.Verification;
@@ -56,6 +57,41 @@ public static class DigitalIdVerifier
             return VerificationResult.Fail(DigitalIdErrorCode.Unknown, "Issuer signature invalid");
 
         return VerificationResult.Ok();
+    }
+
+    /// <summary>
+    /// Loads a BouncyCastle public key from a PEM string (certificate or public key).
+    /// 
+    /// Production use: Load your trusted IACA issuer certificates this way and pass the resulting
+    /// AsymmetricKeyParameter to VerifyMdoc / MdocVerifier.Verify.
+    /// 
+    /// How to obtain real certificates:
+    /// - Development / simulator: Use the "Sample data and simulator keys" bundle from Apple’s mDL docs.
+    /// - Production: Contact each issuing authority (state DMV, national eID provider, etc.) for their current
+    ///   signing certificate. Maintain an allow-list of trusted issuers in your backend configuration.
+    ///   There is no single universal live global API (issuers are sovereign); lists are maintained per-jurisdiction
+    ///   or through regional trust frameworks (e.g. EU eIDAS trusted lists, AAMVA resources for US mDL).
+    ///   Fetching live without strong pinning and signature verification on the list itself is not recommended.
+    ///
+    /// US Passport Digital ID (Apple "passport-digital-id"):
+    ///   • Dev/simulator: https://developer.apple.com/bug-reporting/profiles-and-logs/
+    ///     then https://developer.apple.com/wallet/get-started-with-verify-with-wallet/
+    ///   • Production: Privately distributed by Apple to approved RPs after entitlement approval.
+    /// </summary>
+    public static AsymmetricKeyParameter? LoadIssuerPublicKeyFromPem(string pem)
+    {
+        if (string.IsNullOrWhiteSpace(pem)) return null;
+
+        using var reader = new System.IO.StringReader(pem);
+        var pemReader = new Org.BouncyCastle.OpenSsl.PemReader(reader);
+        var obj = pemReader.ReadObject();
+
+        return obj switch
+        {
+            Org.BouncyCastle.Crypto.AsymmetricKeyParameter key => key,
+            Org.BouncyCastle.X509.X509Certificate cert => cert.GetPublicKey(),
+            _ => null
+        };
     }
 }
 

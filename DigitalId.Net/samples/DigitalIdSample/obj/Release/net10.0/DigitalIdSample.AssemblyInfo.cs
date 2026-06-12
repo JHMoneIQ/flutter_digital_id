@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DigitalIdSample")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a57b9ca9d6376124e21abb72bf68ccc5abd85483")]
 [assembly: System.Reflection.AssemblyProductAttribute("DigitalIdSample")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DigitalIdSample")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

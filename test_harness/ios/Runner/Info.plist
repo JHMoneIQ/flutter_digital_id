@@ -29,7 +29,7 @@
 	<key>NSIdentityUsageDescription</key>
 	<string>Digital ID is used to verify your age or identity with IDs stored in Apple Wallet.</string>
 	<key>DigitalIdMerchantIdentifier</key>
-	<string>merchant.com.hancock.digitalid</string>
+	<string>merchant.com.example.digitalid</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

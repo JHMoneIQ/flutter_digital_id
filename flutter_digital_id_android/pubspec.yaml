@@ -1,7 +1,10 @@
 name: flutter_digital_id_android
-description: Android implementation of flutter_digital_id.
+description: Android implementation of flutter_digital_id using Credential Manager and the Digital Credentials API. Builds DCQL requests and returns wallet response payloads (rawCredential + format) for backend verification.
 version: 0.1.0
 homepage: https://github.com/jameshancock/flutter_digital_id
+repository: https://github.com/jameshancock/flutter_digital_id
+issue_tracker: https://github.com/jameshancock/flutter_digital_id/issues
+license: MIT
 
 resolution: workspace
 
@@ -13,12 +16,12 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_digital_id_platform_interface: ^0.1.0
+  meta: ^1.15.0
 
 dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  meta: ^1.15.0
 
 flutter:
   plugin:

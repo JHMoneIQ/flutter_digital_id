@@ -17,7 +17,7 @@ Before any release:
 - [ ] No breaking changes without a major version bump across **all** packages.
 - [ ] Update cross-references (READMEs, example app pubspec if needed).
 - [ ] Review and update this file + any changelogs if they exist.
-- [ ] Dry-run the publish commands locally where possible.
+- [x] Dry-run the publish commands locally where possible (and via CI `publish-dry-run` + `release-check` jobs).
 
 ## 2. Versioning Policy
 
@@ -173,4 +173,4 @@ dotnet nuget push ./artifacts/DigitalId.Net.*.nupkg -k <key> -s https://api.nuge
 
 **This file is the single source of truth for releases.** Update it whenever the process changes (new platforms, new C# verification features, CI automation, etc.).
 
-Last updated: 2026 (after full implementation of DigitalId.Net with complete hand-coded serialization, golden vectors, and NuGet packaging).
+Last updated: 2026. Publish dry-runs (Flutter order + .NET pack) are exercised via CI and documented in the release process.

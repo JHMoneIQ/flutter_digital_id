@@ -1,5 +1,3 @@
-library flutter_digital_id_platform_interface;
-
 export 'src/models/claim_path.dart';
 export 'src/models/digital_id_credential.dart';
 export 'src/models/digital_id_exception.dart';

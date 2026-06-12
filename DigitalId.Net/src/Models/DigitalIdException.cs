@@ -3,14 +3,26 @@ using System.Text.Json.Serialization;
 
 namespace DigitalId;
 
+/// <summary>
+/// Represents an error that occurred during a digital identity request or verification.
+/// </summary>
 public sealed record DigitalIdException
 {
+    /// <summary>
+    /// The machine-readable error code.
+    /// </summary>
     [JsonPropertyName("code")]
     public required DigitalIdErrorCode Code { get; init; }
 
+    /// <summary>
+    /// Human-readable description of the error.
+    /// </summary>
     [JsonPropertyName("message")]
     public string? Message { get; init; }
 
+    /// <summary>
+    /// Additional diagnostic details (if any).
+    /// </summary>
     [JsonPropertyName("details")]
     public object? Details { get; init; }
 
@@ -43,10 +55,21 @@ public sealed record DigitalIdException
 [JsonConverter(typeof(JsonStringEnumConverter<DigitalIdErrorCode>))]
 public enum DigitalIdErrorCode
 {
+    /// <summary>No digital ID of the requested type is available on this device/platform.</summary>
     NotAvailable,
+
+    /// <summary>The user explicitly cancelled the identity presentation.</summary>
     UserCancelled,
+
+    /// <summary>The app is not entitled (Apple) or not registered as a relying party (Google) for this feature.</summary>
     NotEntitled,
+
+    /// <summary>No matching credential was found for the request.</summary>
     NoCredential,
+
+    /// <summary>The current platform or OS version does not support digital identity presentment.</summary>
     PlatformUnsupported,
+
+    /// <summary>An unexpected or unknown error occurred.</summary>
     Unknown
 }

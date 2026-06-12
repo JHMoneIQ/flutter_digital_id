@@ -1,5 +1,5 @@
 name: flutter_digital_id_example
-description: Example app for flutter_digital_id.
+description: Example app demonstrating flutter_digital_id usage for KYC / signup flows, including test vector mode for UI and backend handoff development without native entitlements.
 publish_to: none
 
 resolution: workspace

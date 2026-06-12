@@ -1,7 +1,10 @@
 name: flutter_digital_id_web
-description: Web implementation of flutter_digital_id using the W3C Digital Credentials API.
+description: Web implementation of flutter_digital_id targeting the W3C Digital Credentials API (navigator.credentials.get with digital requests). Builds OpenID4VP/DCQL requests and extracts raw responses using hardened heuristics. Interoperability depends on browser + wallet support for the emerging standard.
 version: 0.1.0
 homepage: https://github.com/jameshancock/flutter_digital_id
+repository: https://github.com/jameshancock/flutter_digital_id
+issue_tracker: https://github.com/jameshancock/flutter_digital_id/issues
+license: MIT
 
 resolution: workspace
 
@@ -19,6 +22,8 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
 
 flutter:
   plugin:

@@ -16,8 +16,9 @@ iOS and macOS (unified darwin) implementation of the flutter_digital_id plugin.
   s.source_files     = 'Sources/flutter_digital_id_darwin/**/*'
   s.public_header_files = 'Sources/flutter_digital_id_darwin/**/*.h'
   s.dependency 'Flutter'
-  s.platform = :ios, '16.5'
-  s.platform = :osx, '13.0'
+
+  s.ios.deployment_target = '16.5'
+  s.osx.deployment_target = '13.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

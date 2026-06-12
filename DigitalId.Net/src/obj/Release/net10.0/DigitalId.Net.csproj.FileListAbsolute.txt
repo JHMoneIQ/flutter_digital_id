@@ -12,3 +12,4 @@
 /Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/src/obj/Release/net10.0/DigitalId.Net.xml
 /Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/src/obj/Release/net10.0/DigitalId.Net.pdb
 /Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/src/obj/Release/net10.0/ref/DigitalId.Net.dll
+/Users/jameshancock/Repos/GitHub/flutter_digital_id/DigitalId.Net/src/obj/Release/net10.0/DigitalId.Net.sourcelink.json

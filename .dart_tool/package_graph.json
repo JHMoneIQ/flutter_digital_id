@@ -48,12 +48,12 @@
       "version": "0.1.0",
       "dependencies": [
         "flutter",
-        "flutter_digital_id_platform_interface"
+        "flutter_digital_id_platform_interface",
+        "meta"
       ],
       "devDependencies": [
         "flutter_lints",
-        "flutter_test",
-        "meta"
+        "flutter_test"
       ]
     },
     {
@@ -78,7 +78,8 @@
         "web"
       ],
       "devDependencies": [
-        "flutter_lints"
+        "flutter_lints",
+        "flutter_test"
       ]
     },
     {

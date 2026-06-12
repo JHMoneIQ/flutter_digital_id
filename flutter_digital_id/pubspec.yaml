@@ -1,7 +1,10 @@
 name: flutter_digital_id
-description: Flutter plugin for requesting digital identity documents (passport, EU eID, driver's license/mDL) from native wallets using the Digital Credentials API. Returns structured data for the frontend plus the raw cryptographic proof for backend verification.
+description: Flutter plugin for requesting digital identity documents (passport, EU Digital ID / PID, driver's license / mDL) from native wallets. Returns rich structured fields for UI pre-fill plus the raw cryptographic proof (encrypted blob or mdoc/vp_token) that your backend must verify before trusting any identity data.
 version: 0.1.0
 homepage: https://github.com/jameshancock/flutter_digital_id
+repository: https://github.com/jameshancock/flutter_digital_id
+issue_tracker: https://github.com/jameshancock/flutter_digital_id/issues
+license: MIT
 
 resolution: workspace
 

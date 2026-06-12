@@ -121,8 +121,8 @@ class _HomePageState extends State<HomePage> {
     setState(() => _status = 'Attempting real native flow...');
 
     try {
-      // This will use the real implementation on iOS/Android if available,
-      // or the current stub on other platforms.
+      // This will use the real platform implementation (PassKit on iOS, Credential Manager on Android,
+      // Digital Credentials API on Web) when the platform and entitlements allow.
       final cred = await DigitalId.instance.getDigitalId(
         DigitalIdType.passport,
         options: DigitalIdRequestOptions(
@@ -224,8 +224,9 @@ class _HomePageState extends State<HomePage> {
                     ],
                     const SizedBox(height: 24),
                     const Text(
-                      'Note: Real functionality requires entitlements (Apple) / RP registration (Google) '
-                      'and a device with test or real digital IDs. Native layers are currently stubs — see README.',
+                      'Note: Full wallet data requires platform entitlements (Apple "In-App Identity Presentment") '
+                      'or RP registration (Google) plus a device/browser with supporting digital ID wallets. '
+                      'The plugin uses the real native APIs on supported platforms. See README for setup.',
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ],

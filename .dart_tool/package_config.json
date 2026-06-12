@@ -279,8 +279,8 @@
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.12.0",
+  "generatorVersion": "3.12.1",
   "flutterRoot": "file:///Users/jameshancock/flutter",
-  "flutterVersion": "3.44.0",
+  "flutterVersion": "3.44.1",
   "pubCache": "file:///Users/jameshancock/.pub-cache"
 }

@@ -7,11 +7,9 @@ import UIKit
 
 /// Darwin entry point for `flutter_digital_id`.
 ///
-/// macOS remains unsupported. On iOS, this file now uses the documented PassKit
+/// macOS returns clear PLATFORM_UNSUPPORTED. On iOS, this uses the documented PassKit
 /// Verify with Wallet types (`PKIdentityAuthorizationController`,
-/// `PKIdentityRequest`, and the typed descriptors) rather than speculative
-/// selector-based calls. Treat the flow as experimental until you validate it
-/// with an entitled Apple app.
+/// `PKIdentityRequest`, and the typed descriptors) for the real entitled presentment flow.
 public final class FlutterDigitalIdPlugin: NSObject, FlutterPlugin {
 #if os(iOS)
     @available(iOS 16.0, *)

@@ -1,5 +1,5 @@
 name: digital_id_test_harness
-description: "A new Flutter project."
+description: Cross-platform test harness and manual demo app for flutter_digital_id. Includes widget tests, integration tests, and flows for exercising all supported platforms + golden test vectors.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

@@ -1,7 +1,10 @@
 name: flutter_digital_id_platform_interface
-description: Platform interface for flutter_digital_id.
+description: Platform interface and shared data models for flutter_digital_id. Defines DigitalIdCredential (structured claims + raw cryptographic proof), DigitalIdRequestOptions (selective disclosure), ClaimPath, and hand-coded serialization for Dart/.NET backend parity.
 version: 0.1.0
 homepage: https://github.com/jameshancock/flutter_digital_id
+repository: https://github.com/jameshancock/flutter_digital_id
+issue_tracker: https://github.com/jameshancock/flutter_digital_id/issues
+license: MIT
 
 resolution: workspace
 

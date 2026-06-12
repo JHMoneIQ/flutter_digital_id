@@ -12,6 +12,10 @@ namespace DigitalId.Verification.Mdoc;
 /// </summary>
 public static class MdocVerifier
 {
+    /// <summary>
+    /// Verifies a device response (mdoc) using optional device public key (for transcript binding)
+    /// and/or issuer public key (for MSO signature + digest validation).
+    /// </summary>
     public static VerificationResult Verify(
         ReadOnlySpan<byte> deviceResponse,
         byte[] sessionTranscript,

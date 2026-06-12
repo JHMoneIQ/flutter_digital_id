@@ -54,7 +54,7 @@ class DigitalIdTestVectors {
   static const userCancelled = null;
 
   /// Error case seed.
-  static final notEntitledError = DigitalIdException(
+  static const notEntitledError = DigitalIdException(
     code: DigitalIdErrorCode.notEntitled,
     message: 'App is not entitled for this document type. Request entitlement from Apple.',
   );
@@ -104,7 +104,7 @@ class DigitalIdTestVectors {
   );
 
   /// Negative case: No credential available (common Android/Web error path).
-  static final noCredentialError = DigitalIdException(
+  static const noCredentialError = DigitalIdException(
     code: DigitalIdErrorCode.noCredential,
     message: 'No matching digital ID found in any wallet.',
   );

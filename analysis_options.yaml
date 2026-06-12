@@ -1,0 +1,21 @@
+# Root analysis options for the flutter_digital_id workspace.
+# Strict configuration for core packages to catch issues early.
+
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    # Additional strict rules beyond flutter_lints
+    - always_use_package_imports
+    - avoid_dynamic_calls
+    - avoid_print
+    - prefer_const_constructors
+    - prefer_final_fields
+    - unnecessary_null_checks
+    - use_key_in_widget_constructors

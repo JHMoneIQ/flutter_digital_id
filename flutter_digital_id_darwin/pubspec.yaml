@@ -1,7 +1,10 @@
 name: flutter_digital_id_darwin
-description: iOS and macOS implementation of flutter_digital_id (unified darwin package).
+description: iOS (and macOS) implementation of flutter_digital_id using PassKit Verify with Wallet (PKIdentity* APIs). Returns apple-encrypted blobs for server-side decryption and verification. Requires Apple entitlement for full functionality.
 version: 0.1.0
 homepage: https://github.com/jameshancock/flutter_digital_id
+repository: https://github.com/jameshancock/flutter_digital_id
+issue_tracker: https://github.com/jameshancock/flutter_digital_id/issues
+license: MIT
 
 resolution: workspace
 

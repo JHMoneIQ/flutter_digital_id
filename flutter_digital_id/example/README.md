@@ -1,17 +1,26 @@
 # flutter_digital_id_example
 
-A new Flutter project.
+Demonstration app for the `flutter_digital_id` Flutter plugin.
 
-## Getting Started
+## What it shows
 
-This project is a starting point for a Flutter application.
+- High-level usage of `DigitalId.instance.getDigitalId(...)`, the convenience methods (`verifyWithPassport`, `verifyAge`, etc.), and `DigitalIdRequestOptions`.
+- "Use test vector" mode — lets you exercise the full UI + serialization + backend handoff flow with no native entitlements or devices. This is the fastest way to develop KYC screens and wire up your server verification.
+- Display of both the structured fields (for pre-fill) and the raw proof bytes / format (what you send to your backend).
 
-A few resources to get you started if this is your first Flutter project:
+## Running
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+cd flutter_digital_id/example
+flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+On iOS simulator (after installing Apple's Wallet developer profile + sample data), the "Try real native flow" buttons can exercise the PassKit consent sheet.
+
+See the root README for setup. Use the `test_harness` for the richest cross-platform testing experience.
+
+## Important security note
+
+The structured data shown in the app is **not trustworthy** until your backend has validated the accompanying `rawCredential` using something like `DigitalId.Net` (or equivalent mdoc / COSE / Apple response decryption logic) plus issuer trust anchors.
+
+Never create accounts or persist identity data based only on the client-side structured fields.

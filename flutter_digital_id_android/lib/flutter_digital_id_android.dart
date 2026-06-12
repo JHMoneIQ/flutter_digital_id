@@ -1,5 +1,3 @@
-library flutter_digital_id_android;
-
 import 'dart:convert';
 
 import 'package:flutter/services.dart';

@@ -1,0 +1,180 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  flutter:
+    name: Flutter (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Pub get (workspace)
+        run: flutter pub get
+
+      - name: Analyze platform interface
+        run: |
+          cd flutter_digital_id_platform_interface
+          flutter analyze
+
+      - name: Analyze main package
+        run: |
+          cd flutter_digital_id
+          flutter analyze
+
+      - name: Analyze Android implementation
+        run: |
+          cd flutter_digital_id_android
+          flutter analyze
+
+      - name: Analyze Darwin implementation
+        run: |
+          cd flutter_digital_id_darwin
+          flutter analyze
+
+      - name: Analyze Web implementation
+        run: |
+          cd flutter_digital_id_web
+          flutter analyze
+
+      - name: Analyze test harness
+        run: |
+          cd test_harness
+          flutter analyze
+
+      - name: Test platform interface (golden vectors + serialization)
+        run: |
+          cd flutter_digital_id_platform_interface
+          flutter test
+
+      - name: Test main package (facade + convenience methods)
+        run: |
+          cd flutter_digital_id
+          flutter test
+
+      - name: Test Android package (channel mapping)
+        run: |
+          cd flutter_digital_id_android
+          flutter test
+
+      - name: Test harness widget tests
+        run: |
+          cd test_harness
+          flutter test test/widget_test.dart
+
+      - name: Harness smoke build - APK (debug)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          cd test_harness
+          flutter build apk --debug
+
+      - name: Harness smoke build - iOS simulator (no codesign)
+        if: matrix.os == 'macos-latest'
+        run: |
+          cd test_harness
+          flutter build ios --simulator --no-codesign
+
+  dotnet:
+    name: .NET (DigitalId.Net)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: .NET version
+        run: dotnet --version
+
+      - name: Restore + Build (Release)
+        working-directory: DigitalId.Net
+        run: |
+          dotnet clean
+          dotnet build src/DigitalId.Net.csproj -c Release
+
+      - name: Test (Release)
+        working-directory: DigitalId.Net
+        run: |
+          dotnet test tests/DigitalId.Net.Tests.csproj -c Release
+
+      - name: Pack (Release) - dry run equivalent
+        working-directory: DigitalId.Net
+        run: |
+          mkdir -p artifacts
+          dotnet pack src/DigitalId.Net.csproj -c Release -o ./artifacts
+          ls -la artifacts/
+
+  publish-dry-run:
+    name: Publish dry-run check
+    runs-on: ubuntu-latest
+    needs: [flutter, dotnet]
+    # This job verifies that the packages are in a publishable state.
+    # It does NOT actually publish. Real publishes are manual per release.md.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Pub get (workspace)
+        run: flutter pub get
+
+      # Flutter publish order per release.md: platform_interface -> android -> darwin -> web -> main
+      - name: Dry-run publish platform_interface
+        working-directory: flutter_digital_id_platform_interface
+        run: dart pub publish --dry-run
+
+      - name: Dry-run publish android
+        working-directory: flutter_digital_id_android
+        run: dart pub publish --dry-run
+
+      - name: Dry-run publish darwin
+        working-directory: flutter_digital_id_darwin
+        run: dart pub publish --dry-run
+
+      - name: Dry-run publish web
+        working-directory: flutter_digital_id_web
+        run: dart pub publish --dry-run
+
+      - name: Dry-run publish main flutter_digital_id
+        working-directory: flutter_digital_id
+        run: dart pub publish --dry-run
+
+      - name: .NET pack (Release) for verification
+        working-directory: DigitalId.Net
+        run: |
+          dotnet pack src/DigitalId.Net.csproj -c Release -o ./artifacts-dryrun
+          ls -la artifacts-dryrun/

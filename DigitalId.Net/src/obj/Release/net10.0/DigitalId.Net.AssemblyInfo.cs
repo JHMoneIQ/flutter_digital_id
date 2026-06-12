@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright 2026 Project Fulcrum Inc.")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute(@"Minimal-dependency .NET 10 library for building and verifying digital identity credentials (passports, mDL, EU Digital ID) using OpenID4VP / mdoc. Official C# companion to the flutter_digital_id Flutter plugin. Hand-coded serialization for full Dart/Flutter parity.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a57b9ca9d6376124e21abb72bf68ccc5abd85483")]
 [assembly: System.Reflection.AssemblyProductAttribute("DigitalId.Net")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DigitalId.Net")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0")]

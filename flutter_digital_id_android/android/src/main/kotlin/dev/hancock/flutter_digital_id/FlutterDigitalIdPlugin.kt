@@ -76,6 +76,8 @@ class FlutterDigitalIdPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
+    // The Digital Credentials feature in Credential Manager currently requires this OptIn.
+    // This is the supported production path for requesting mdoc / digital credentials on Android.
     @OptIn(ExperimentalDigitalCredentialApi::class)
     private fun handleGetDigitalId(call: MethodCall, result: Result) {
         val requestJson = call.argument<String>("requestJson")

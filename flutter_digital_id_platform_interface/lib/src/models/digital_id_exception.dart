@@ -55,6 +55,9 @@ enum DigitalIdErrorCode {
   /// The platform does not support this operation (e.g. desktop, unsupported browser).
   platformUnsupported,
 
+  /// The request to the wallet/credential provider failed (e.g. interop error, bad response shape on Web).
+  requestFailed,
+
   /// An unexpected error occurred.
   unknown,
 }

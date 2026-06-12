@@ -119,7 +119,9 @@ final Map<String, dynamic> metadata;
 
 ### iOS (PassKit Verify with Wallet)
 
-1. Request the **"In-App Identity Presentment"** entitlement from Apple (<https://developer.apple.com/contact/request/verify-with-wallet/>).
+**Important architectural note:** The PassKit "In-App Identity Presentment" APIs (used by this plugin) require a restricted entitlement (`com.apple.developer.in-app-identity-presentment`) that must be explicitly requested and approved by Apple through their developer program. This is not automatic and involves a manual review process. Without the approved entitlement, `isDigitalIdAvailable` will return false and presentation will fail with a `NOT_ENTITLED` error. Simulator testing with Apple's developer profile is supported for development, but production on real devices requires the full approval + provisioning.
+
+1. Request the **"In-App Identity Presentment"** entitlement from Apple (<https://developer.apple.com/contact/request/verify-with-wallet/>). Justify your use case (KYC, age verification, etc.).
 
 2. Create a Merchant ID and an Identity Access Certificate (the private key is used by **your server** to decrypt responses).
 
@@ -131,7 +133,7 @@ final Map<String, dynamic> metadata;
    <key>NSIdentityUsageDescription</key>
    <string>Digital ID is used to verify your age or identity with IDs stored in Apple Wallet.</string>
    <key>DigitalIdMerchantIdentifier</key>
-   <string>merchant.com.yourcompany.digitalid</string>
+   <string>merchant.com.example.digitalid</string>
    ```
 
    (The example and test harness already include this.)
@@ -141,7 +143,7 @@ final Map<String, dynamic> metadata;
    - Download the sample data bundle from Apple's docs.
    - Run on an iPhone simulator. The consent sheet will appear using mock data.
 
-Real production use on devices requires the approved entitlement.
+Real production use on devices requires the approved entitlement and proper provisioning profiles.
 
 ### Android (Credential Manager)
 
@@ -220,6 +222,8 @@ flutter run
 **This library only collects the proof. Verification is your responsibility.**
 
 Recommended: `DigitalId.Net` (companion library in this repository) — full MSO digest validation, COSE signature checks, Apple response decryption, transcript binding, and a complete set of golden vectors + attack tests.
+
+See `DigitalId.Net/README.md` for concrete links to US passport digital ID test certificates (Apple developer bundle) and guidance on obtaining production IACA roots.
 
 ## License
 

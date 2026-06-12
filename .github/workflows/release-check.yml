@@ -1,0 +1,68 @@
+name: Release Check
+
+on:
+  workflow_dispatch:
+  # Optionally trigger manually or from a release branch pattern if desired.
+  # push:
+  #   branches: [ 'release/*', 'v*' ]
+
+jobs:
+  release-verification:
+    name: Release verification (tests + dry-runs + builds)
+    runs-on: macos-latest   # macOS gives us the best coverage for iOS + Flutter tooling
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Full pub get
+        run: flutter pub get
+
+      - name: Run all Dart-side tests
+        run: |
+          cd flutter_digital_id_platform_interface && flutter test
+          cd ../flutter_digital_id && flutter test
+          cd ../flutter_digital_id_android && flutter test
+          cd ../test_harness && flutter test test/widget_test.dart
+
+      - name: .NET build + test (Release)
+        working-directory: DigitalId.Net
+        run: |
+          dotnet build src/DigitalId.Net.csproj -c Release
+          dotnet test tests/DigitalId.Net.Tests.csproj -c Release
+
+      - name: Harness smoke builds
+        run: |
+          cd test_harness
+          flutter build apk --debug
+          flutter build ios --simulator --no-codesign
+
+      - name: Full publish dry-run sequence (Flutter order critical)
+        run: |
+          echo "=== 1/5 platform_interface ==="
+          cd flutter_digital_id_platform_interface && dart pub publish --dry-run
+          echo "=== 2/5 android ==="
+          cd ../flutter_digital_id_android && dart pub publish --dry-run
+          echo "=== 3/5 darwin ==="
+          cd ../flutter_digital_id_darwin && dart pub publish --dry-run
+          echo "=== 4/5 web ==="
+          cd ../flutter_digital_id_web && dart pub publish --dry-run
+          echo "=== 5/5 main flutter_digital_id ==="
+          cd ../flutter_digital_id && dart pub publish --dry-run
+
+      - name: .NET pack
+        working-directory: DigitalId.Net
+        run: |
+          dotnet pack src/DigitalId.Net.csproj -c Release -o ./artifacts
+          echo "Packed:"
+          ls -la artifacts/

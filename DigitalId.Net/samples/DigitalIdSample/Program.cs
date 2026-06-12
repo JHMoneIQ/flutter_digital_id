@@ -22,13 +22,29 @@ namespace DigitalIdSample;
 /// 2. Receive a DigitalIdCredential (from your Flutter app or directly)
 /// 3. Perform stronger verification than the built-in skeleton
 ///
-/// NOTE: Full production mdoc verification also requires:
+/// NOTE: Full production mdoc verification **requires**:
 /// - Proper CBOR parsing of the DeviceResponse / IssuerSigned
 /// - Extracting the device public key and MSO
-/// - Verifying the issuer signature on the MSO against your trusted IACA certificates
+/// - Verifying the issuer signature on the MSO against your **trusted IACA (Issuing Authority Certificate Authority) root certificates**.
+///
+/// Signature validation alone is **not sufficient**. An attacker can create self-signed credentials that pass digest and signature checks.
+/// Production Relying Parties MUST maintain/fetch a set of official state or trusted IACA root certificates and validate the certificate chain in IssuerAuth before trusting any claims.
+///
+/// **Concrete links for US Passport Digital ID** (Apple `passport-digital-id`):
+/// - Developer profile + sample keys (includes test certs for simulator):
+///   https://developer.apple.com/bug-reporting/profiles-and-logs/
+///   https://developer.apple.com/wallet/get-started-with-verify-with-wallet/
+/// - Production US passport IACA certs are distributed privately to approved relying parties via Apple
+///   after you receive the "In-App Identity Presentment" entitlement. They are not on a public download page.
+///
+/// **US States (mDL)**: Contact individual state DMVs (or AAMVA) after approval. Each state has its own signing certs.
+///
+/// Load them like this (see `DigitalIdVerifier.LoadIssuerPublicKeyFromPem`):
+///   string pem = File.ReadAllText("us-passport-iaca.pem");
+///   var issuerKey = DigitalIdVerifier.LoadIssuerPublicKeyFromPem(pem);
 ///
 /// This sample focuses on the device authentication (transcript + device key) part,
-/// which is the most common source of "fake presentation" attacks.
+/// which is the most common source of "fake presentation" attacks. See MdocVerifier.cs for the core logic.
 /// </summary>
 internal static class Program
 {
@@ -119,6 +135,13 @@ internal static class Program
     {
         var issuerPair = GenerateEcKeyPair();
         var devicePair = GenerateEcKeyPair();
+
+        // Example loading trusted issuer cert / key from PEM (for production IACA validation)
+        // In real deployments you load a list of trusted PEM-encoded certificates from secure config:
+        //   string iacaPem = await File.ReadAllTextAsync("trusted-iaca-issuer.pem");
+        //   var trustedIssuerKey = DigitalIdVerifier.LoadIssuerPublicKeyFromPem(iacaPem);
+        // Then pass trustedIssuerKey to VerifyMdoc / MdocVerifier.Verify as the issuerPublicKey parameter.
+        // See DigitalIdVerifier.cs for the loader and DigitalId.Net/README.md for how to obtain real certs.
 
         var issuerPriv = (ECPrivateKeyParameters)issuerPair.Private;
         var devicePriv = (ECPrivateKeyParameters)devicePair.Private;

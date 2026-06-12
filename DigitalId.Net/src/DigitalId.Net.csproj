@@ -10,6 +10,7 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <AnalysisLevel>latest</AnalysisLevel>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 
     <!-- NuGet packaging (aligned with ProjectFulcrum library standards) -->

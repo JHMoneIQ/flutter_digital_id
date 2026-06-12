@@ -13,7 +13,7 @@
     <releaseNotes>Initial release: full model parity with flutter_digital_id, DCQL request builder, verification primitives, golden test vectors.</releaseNotes>
     <copyright>Copyright 2026 Project Fulcrum Inc.</copyright>
     <tags>digital-id mdl mdoc openid4vp digital-credentials verification kyc passport drivers-license</tags>
-    <repository type="git" url="https://github.com/jameshancock/flutter_digital_id" />
+    <repository type="git" url="https://github.com/jameshancock/flutter_digital_id" commit="a57b9ca9d6376124e21abb72bf68ccc5abd85483" />
     <dependencies>
       <group targetFramework="net10.0">
         <dependency id="BouncyCastle.Cryptography" version="2.6.2" exclude="Build,Analyzers" />

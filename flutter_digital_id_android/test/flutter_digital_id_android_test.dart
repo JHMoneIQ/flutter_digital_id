@@ -26,21 +26,21 @@ void main() {
       final jsonStr = impl.buildDcqlRequestJson(DigitalIdType.driversLicense, options);
       final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
 
-      expect(decoded['requests'], isA<List>());
-      final request = (decoded['requests'] as List).first as Map<String, dynamic>;
+      expect(decoded['requests'], isA<List<dynamic>>());
+      final request = (decoded['requests'] as List<dynamic>).first as Map<String, dynamic>;
       expect(request['nonce'], 'test-nonce-123');
       expect(request['dcql_query'], isNotNull);
 
       final dcql = request['dcql_query'] as Map<String, dynamic>;
-      final cred = (dcql['credentials'] as List).first as Map<String, dynamic>;
-      expect(cred['meta']['doctype_value'], 'org.iso.18013.5.1.mDL');
-      expect(cred['claims'], isA<List>());
-      expect((cred['claims'] as List).length, 3);
-      expect((cred['claims'] as List).any((c) => (c as Map)['path'].last == 'family_name'), isTrue);
+      final cred = (dcql['credentials'] as List<dynamic>).first as Map<String, dynamic>;
+      expect((cred['meta'] as Map<String, dynamic>)['doctype_value'], 'org.iso.18013.5.1.mDL');
+      expect(cred['claims'], isA<List<dynamic>>());
+      expect((cred['claims'] as List<dynamic>).length, 3);
+      expect((cred['claims'] as List<dynamic>).any((c) => ((c as Map<String, dynamic>)['path'] as List<dynamic>).last == 'family_name'), isTrue);
     });
 
     test('includes platformOptions escape hatch when provided', () {
-      final options = DigitalIdRequestOptions(
+      const options = DigitalIdRequestOptions(
         platformOptions: {
           'requests': [
             {'custom': 'full-override'}
@@ -55,8 +55,9 @@ void main() {
     test('falls back to sensible defaults when no claims specified', () {
       final jsonStr = impl.buildDcqlRequestJson(DigitalIdType.ageVerificationOnly, null);
       final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
-      final claims = (((decoded['requests'] as List).first as Map)['dcql_query'] as Map)['credentials'].first['claims'] as List;
-      expect(claims.any((c) => (c as Map)['path'].contains('age_over_18')), isTrue);
+      final claimsList = (((decoded['requests'] as List<dynamic>).first as Map<String, dynamic>)['dcql_query'] as Map<String, dynamic>)['credentials'] as List<dynamic>;
+      final claims = (claimsList.first as Map<String, dynamic>)['claims'] as List<dynamic>;
+      expect(claims.any((c) => (((c as Map<String, dynamic>)['path'] as List<dynamic>).contains('age_over_18'))), isTrue);
     });
 
     test('maps euDigitalId / passport to expected doctype', () {
