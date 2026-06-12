@@ -19,3 +19,12 @@ coverage/
 .DS_Store
 *.swp
 *~
+
+# Flutter example generated iOS ephemeral / tooling files (frequently
+# committed by mistake during development but must not ship or trigger
+# pub validation warnings).
+example/ios/Flutter/ephemeral/
+example/ios/Flutter/Generated.xcconfig
+example/ios/Flutter/flutter_export_environment.sh
+example/ios/Flutter/flutter_lldb*
+example/ios/Flutter/*integration.env
