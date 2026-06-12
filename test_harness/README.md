@@ -44,3 +44,7 @@ flutter run -d <emulator-id>
 - For the most realistic iOS testing, use a simulator that supports the digital ID features (iOS 17+ / 26.x recommended) + Apple's developer profile.
 
 See the main project `TESTING.md` for full setup instructions (especially the Apple profile and sample data).
+
+## Web Testing
+
+The harness supports web builds (`flutter build web` or `flutter run -d chrome`). This enables manual interoperability testing of the Digital Credentials API path against browser-based test wallets/harnesses (e.g. digital-credentials.dev tools). Requires a secure context.
